@@ -79,6 +79,26 @@ http://127.0.0.1:8765/index.html
 - 导入备份文件
 - 从备份文本恢复
 
+## 安装到手机桌面
+
+部署上线后，在手机浏览器打开 GitHub Pages 网址。
+
+### iPhone Safari
+
+1. 打开网址
+2. 点击分享按钮
+3. 选择「添加到主屏幕」
+4. 回到桌面，点击「成长日志」图标打开
+
+### Android Chrome
+
+1. 打开网址
+2. 点击右上角菜单
+3. 选择「添加到主屏幕」或「安装应用」
+4. 回到桌面打开
+
+注意：PWA 数据仍然保存在当前浏览器环境中。不同设备、不同浏览器的数据不会自动同步。换设备或清理缓存前，请先使用页面内的数据备份功能导出 JSON。
+
 ## 静态部署
 
 本项目可以部署到任何静态站点平台。
@@ -109,18 +129,23 @@ awei-growth-adventure-log/
 ├── style.css
 ├── script.js
 ├── README.md
+├── manifest.json
+├── service-worker.js
 └── assets/
-    └── characters/
-        ├── stage-01-balanced.png
-        ├── stage-02-balanced.png
-        ├── stage-03-balanced.png
-        ├── stage-04-balanced.png
-        ├── stage-05-balanced.png
-        ├── stage-06-balanced.png
-        ├── stage-07-balanced.png
-        ├── stage-08-balanced.png
-        ├── stage-09-balanced.png
-        └── stage-10-balanced.png
+    ├── characters/
+    │   ├── stage-01-balanced.png
+    │   ├── stage-02-balanced.png
+    │   ├── stage-03-balanced.png
+    │   ├── stage-04-balanced.png
+    │   ├── stage-05-balanced.png
+    │   ├── stage-06-balanced.png
+    │   ├── stage-07-balanced.png
+    │   ├── stage-08-balanced.png
+    │   ├── stage-09-balanced.png
+    │   └── stage-10-balanced.png
+    └── icons/
+        ├── icon-192.png
+        └── icon-512.png
 ```
 
 ## 版本功能概览
@@ -141,3 +166,4 @@ awei-growth-adventure-log/
 - V1.8：成长图鉴
 - V1.9：Level Up 升级提示
 - V2.0：版本收束与发布准备
+- V2.1：PWA 支持与基础离线缓存

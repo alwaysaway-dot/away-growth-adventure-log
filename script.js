@@ -1695,6 +1695,20 @@ resetButton.addEventListener("click", function () {
   updateAll();
 });
 
+// 注册 Service Worker：部署到 GitHub Pages 的 https 地址后可提供基础离线能力。
+// 如果在本地文件模式或不支持 Service Worker 的环境中失败，只输出警告，不影响页面功能。
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(function () {
+        console.log("Service Worker registered");
+      })
+      .catch(function (error) {
+        console.warn("Service Worker registration failed:", error);
+      });
+  });
+}
+
 todayText.textContent = formatDisplayDate(today);
 summaryInput.value = todayData.summary;
 renderLastBackupTime();
