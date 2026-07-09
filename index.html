@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>阿尾成长冒险日志</title>
+  <!-- 引入外部 CSS 文件，让页面样式和 HTML 内容分开管理 -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>阿尾成长冒险日志</h1>
+      <p class="subtitle">每天完成现实任务，培养你的专属成长冒险者。</p>
+      <p id="todayText" class="date-text">正在读取日期...</p>
+    </header>
+
+    <details class="adventurer-panel" aria-label="冒险者状态面板" open>
+      <summary>
+        <span>冒险者状态面板</span>
+        <small>点击收起 / 展开</small>
+      </summary>
+      <div class="adventurer-layout">
+        <div class="character-card">
+          <div class="character-portrait">
+            <img id="characterImage" src="./assets/characters/stage-01-balanced.png" alt="少年冒险者角色立绘">
+            <span class="character-fallback" aria-hidden="true">🌱⚔️</span>
+          </div>
+          <strong>少年冒险者</strong>
+          <span id="levelText">Lv.1 初入旅途者</span>
+        </div>
+
+        <div class="status-board">
+          <div class="compact-stats" aria-label="今日状态栏">
+            <div class="compact-stat">
+              <span>今日</span>
+              <strong id="progressText">0 / 6</strong>
+            </div>
+            <div class="compact-stat">
+              <span>完成率</span>
+              <strong id="rateText">0%</strong>
+            </div>
+            <div class="compact-stat">
+              <span>连续</span>
+              <strong id="streakText">0 天</strong>
+            </div>
+          </div>
+          <button id="settlementButton" class="settlement-button" type="button">领取今日修行结算</button>
+
+          <span id="titleText" class="hidden-stat"></span>
+          <span id="regularProgressText" class="hidden-stat"></span>
+          <span id="emergencyProgressText" class="hidden-stat"></span>
+          <span id="totalDaysText" class="hidden-stat"></span>
+          <span id="totalItemsText" class="hidden-stat"></span>
+
+          <div class="class-growth-grid" aria-label="双职业成长条">
+            <div class="class-panel warrior-panel">
+              <div class="class-panel-header">
+                <strong id="warriorLevelText">⚔️ 剑士 Lv.1</strong>
+                <span id="warriorTitleText">木剑新手</span>
+              </div>
+              <div class="level-row">
+                <span id="warriorExpText">EXP 0 / 100</span>
+              </div>
+              <div class="progress-track class-progress-track" aria-hidden="true">
+                <div id="warriorProgressBar" class="progress-fill warrior-progress-fill"></div>
+              </div>
+            </div>
+
+            <div class="class-panel apprentice-panel">
+              <div class="class-panel-header">
+                <strong id="apprenticeLevelText">📘 学徒 Lv.1</strong>
+                <span id="apprenticeTitleText">书页学徒</span>
+              </div>
+              <div class="level-row">
+                <span id="apprenticeExpText">EXP 0 / 100</span>
+              </div>
+              <div class="progress-track class-progress-track" aria-hidden="true">
+                <div id="apprenticeProgressBar" class="progress-fill apprentice-progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <p id="classBalanceText" class="status-text class-tip">你的剑士与学徒成长较为均衡，适合继续双修路线。</p>
+          <div class="level-row total-progress-row">
+            <span>今日经验条</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="totalProgressBar" class="progress-fill"></div>
+          </div>
+          <p id="statusText" class="status-text">今天还没开始，先完成一件小事。</p>
+          <p id="growthFeedbackText" class="status-text growth-tip">今天可以先从一件小事开始。</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="guide-card">
+      <summary>
+        <span>新手指引</span>
+        <small>第一次使用建议查看</small>
+      </summary>
+      <p class="section-note">欢迎来到成长冒险日志。这里的每一次打卡，都会成为你的角色经验。</p>
+      <ul class="guide-list">
+        <li>勾选今日任务可以获得剑士 / 学徒 EXP。</li>
+        <li>体能修炼主要提升剑士等级，灵智修行主要提升学徒等级。</li>
+        <li>综合等级由剑士等级和学徒等级共同决定。</li>
+        <li>每 10 级会解锁一个新的角色形态。</li>
+        <li>突发任务计入今日完成率，但不增加 EXP。</li>
+        <li>数据保存在当前浏览器，请定期导出 JSON 备份。</li>
+      </ul>
+    </details>
+
+    <details class="calendar-card" aria-label="本月冒险地图" open>
+      <summary>
+        <span>本月冒险地图</span>
+        <small>点击收起 / 展开</small>
+      </summary>
+      <div class="calendar-actions calendar-actions-inline">
+        <button id="prevMonthButton" class="month-button" type="button">上个月</button>
+        <button id="nextMonthButton" class="month-button" type="button">下个月</button>
+      </div>
+      <p id="calendarMonthText" class="calendar-month-text">正在读取月份...</p>
+      <div class="calendar-weekdays" aria-hidden="true">
+        <span>日</span>
+        <span>一</span>
+        <span>二</span>
+        <span>三</span>
+        <span>四</span>
+        <span>五</span>
+        <span>六</span>
+      </div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <div id="calendarDetail" class="calendar-detail">请选择一个日期查看详情。</div>
+    </details>
+
+    <details class="gallery-card">
+      <summary>
+        <span>成长图鉴</span>
+        <small>每 10 级解锁新的成长形态</small>
+      </summary>
+      <p class="section-note">每 10 级，冒险者都会解锁新的成长形态。</p>
+      <div id="characterGallery" class="gallery-grid" aria-label="角色阶段图鉴"></div>
+    </details>
+
+    <section id="regularModules" class="cards" aria-label="今日常规任务板">
+      <!-- 常规模块由 script.js 根据 awei-task-config 动态渲染 -->
+    </section>
+
+    <details class="emergency-card" aria-label="突发任务" open>
+      <summary>
+        <span>🧭 突发任务</span>
+        <small>点击收起 / 展开</small>
+      </summary>
+      <p class="module-desc">记录今天临时出现、但也值得完成的小任务。</p>
+      <p class="exp-hint">突发任务计入完成率，但不增加职业 EXP</p>
+      <div id="emergencyList" class="task-list"></div>
+      <div class="add-task-row">
+        <input id="emergencyInput" type="text" placeholder="添加今天的突发任务">
+        <button id="addEmergencyButton" class="small-button" type="button">添加突发任务</button>
+      </div>
+    </details>
+
+    <details class="daily-summary">
+      <summary>
+        <span>今日冒险日志</span>
+        <small>需要记录时点开</small>
+      </summary>
+      <p class="section-note">记录今天的修行感受、完成情况或下一步调整。</p>
+      <textarea id="summaryInput" rows="5" placeholder="例如：今天完成了智慧修行，但体能修炼还需要补上。"></textarea>
+    </details>
+
+    <details class="history-card">
+      <summary>
+        <span>近 7 日修行记录</span>
+        <small>点开查看横向日志卡</small>
+      </summary>
+      <ul id="historyList" class="history-list"></ul>
+    </details>
+
+    <details class="backup-card">
+      <summary>
+        <span>数据备份</span>
+        <small>导出 / 导入 localStorage 数据</small>
+      </summary>
+      <p class="section-note backup-risk">当前所有数据保存在本机浏览器 localStorage 中。如果你清理浏览器数据、更换浏览器或更换设备，记录可能丢失。建议定期导出 JSON 备份。</p>
+      <p id="lastBackupText" class="backup-time">最近备份：暂无</p>
+
+      <div class="backup-actions" aria-label="备份操作">
+        <button id="exportBackupButton" class="backup-button export-backup" type="button">导出备份文件</button>
+        <label class="backup-button import-backup" for="importBackupFile">导入备份文件</label>
+        <input id="importBackupFile" class="file-input" type="file" accept="application/json,.json">
+        <button id="copyBackupButton" class="backup-button copy-backup" type="button">复制备份文本</button>
+      </div>
+
+      <details class="backup-text-panel">
+        <summary>
+          <span>从备份文本恢复</span>
+          <small>粘贴 JSON 后恢复</small>
+        </summary>
+        <textarea id="backupTextInput" rows="6" placeholder="把备份 JSON 文本粘贴到这里"></textarea>
+        <button id="restoreBackupTextButton" class="backup-button restore-backup" type="button">恢复备份文本</button>
+      </details>
+
+      <textarea id="backupManualText" class="backup-manual-text" rows="6" readonly aria-label="手动复制备份文本"></textarea>
+      <p id="backupMessage" class="backup-message" role="status"></p>
+    </details>
+
+    <footer class="page-footer">
+      <button id="resetButton" class="reset-button" type="button">重置今日打卡</button>
+      <p class="version-info">阿尾成长冒险日志 · V2.0<br>本地成长记录工具，数据保存在当前浏览器中。</p>
+    </footer>
+  </main>
+
+  <div id="settlementModal" class="settlement-modal" aria-hidden="true">
+    <div class="settlement-backdrop" data-close-settlement></div>
+    <section class="settlement-dialog" role="dialog" aria-modal="true" aria-labelledby="settlementTitle">
+      <button id="closeSettlementButton" class="settlement-close" type="button" aria-label="关闭今日结算">×</button>
+      <div id="settlementContent"></div>
+    </section>
+  </div>
+
+  <div id="levelUpToast" class="level-up-toast" aria-live="polite" aria-hidden="true">
+    <button id="closeLevelUpToastButton" class="level-up-close" type="button" aria-label="关闭升级提示">×</button>
+    <div id="levelUpToastContent"></div>
+  </div>
+
+  <!-- 引入外部 JavaScript 文件，让交互逻辑单独管理 -->
+  <script src="./script.js"></script>
+</body>
+</html>
