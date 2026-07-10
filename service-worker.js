@@ -1,4 +1,4 @@
-const cacheName = "awei-growth-cache-v1";
+const cacheName = "awei-growth-cache-v2";
 
 const coreAssets = [
   "./index.html",
@@ -15,8 +15,9 @@ const coreAssets = [
   "./assets/characters/stage-08-balanced.png",
   "./assets/characters/stage-09-balanced.png",
   "./assets/characters/stage-10-balanced.png",
-  "./assets/icons/icon-192.png",
-  "./assets/icons/icon-512.png"
+  "./assets/icons/app-icon-v2-180.png",
+  "./assets/icons/app-icon-v2-192.png",
+  "./assets/icons/app-icon-v2-512.png"
 ];
 
 // 安装时缓存核心静态文件，让页面具备基础离线打开能力。
